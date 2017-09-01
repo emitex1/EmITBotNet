@@ -1,5 +1,5 @@
-# EmIT (Seyed Emad Armoun) (سید عماد آرمون)
-## EmITBotNet
+# EmITBotNet
+## Developed by : EmIT (Seyed Emad Armoun) (سید عماد آرمون)
 A framework for making Telegram Bots using C#
 چارچوب ساخت ربات های تلگرام با زبان سی.شارپ
 
@@ -8,4 +8,5 @@ Modules :
 * LogRegisterar : for saving user interactions in a DB
 
 http://www.EmadArmoun.ir
+
 http://www.Em-IT.ir
