@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmITBotNetBase.cs" />
     <Compile Include="EmITBotNetContext.cs" />
     <Compile Include="KeyboardGenerator.cs" />
     <Compile Include="LogRegisterar.cs" />
