@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using Telegram.Bot.Types.InlineKeyboardButtons;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace ir.EmIT.EmITBotNet
 {
-    //todo حذف توابع اضافه و ادغام موارد قابل ادغام
-    //todo راست به چپ و برعکس
+    //todo ساخت کیبورد راست به چپ و برعکس
+    //todo انتقال کتابخانه اتوماتا به اینجا
 
     public class KeyboardGenerator
     {
