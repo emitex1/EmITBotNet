@@ -10,7 +10,7 @@ namespace ir.EmIT.EmITBotNet
         {
             EmITBotNetContext db = new EmITBotNetContext();
 
-            string log = string.Format("{0}\t{1}\tFrom {2} ({3}) : {4}", new PersianDateTime(m.Date).Date.ToString("yyyy/MM/dd"), m.Date.TimeOfDay.ToHHMMSS(), m.From.Username, m.From.Id, m.Text);
+            string log = string.Format("{0}\t{1}\tFrom {2} {3} ({4}, {5}) : {6}", new PersianDateTime(m.Date).Date.ToString("yyyy/MM/dd"), m.Date.TimeOfDay.ToHHMMSS(), m.Chat.FirstName, m.Chat.LastName, m.Chat.Username, m.Chat.Id, m.Text);
             Console.WriteLine(log);
             // ثبت لاگ سیستم در پایگاه داده
             db.MessageLogs.Add(new MessageLog()
