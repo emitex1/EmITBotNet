@@ -5,7 +5,6 @@ using Telegram.Bot.Types.ReplyMarkups;
 namespace ir.EmIT.EmITBotNet
 {
     //todo ساخت کیبورد راست به چپ و برعکس
-    //todo انتقال کتابخانه اتوماتا به اینجا
 
     public class KeyboardGenerator
     {
@@ -212,11 +211,11 @@ namespace ir.EmIT.EmITBotNet
         public static InlineKeyboardMarkup makeNumberMatrixKeyboard(int fromNumber, int toNumber, int columnCount = 5, bool hasReturnBtn = false, int defaultNumber = -1)
         {
             int roundMaxNumber = toNumber;
-            if ((toNumber-fromNumber) % columnCount != 0)
-                roundMaxNumber += (columnCount - ((toNumber-fromNumber) % columnCount));
-            string[] numberArr = new string[roundMaxNumber - fromNumber];
-            string[] dataArr = new string[roundMaxNumber - fromNumber];
-            for (int i = 0; i < roundMaxNumber - fromNumber; i++)
+            if ((toNumber - fromNumber + 1) % columnCount != 0)
+                roundMaxNumber += (columnCount - ((toNumber - fromNumber + 1) % columnCount));
+            string[] numberArr = new string[roundMaxNumber - fromNumber + 1];
+            string[] dataArr = new string[roundMaxNumber - fromNumber + 1];
+            for (int i = 0; i < roundMaxNumber - fromNumber + 1; i++)
             {
                 if (i < toNumber)
                 {
