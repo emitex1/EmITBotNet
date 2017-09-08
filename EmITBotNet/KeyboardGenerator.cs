@@ -189,14 +189,14 @@ namespace ir.EmIT.EmITBotNet
         /// <returns>کیبورد سال ها</returns>
         public static InlineKeyboardMarkup makeYearKeyboard(int defaultYear = -1)
         {
-            string[] yearTextArr = new string[10];
-            string[] yearDataArr = new string[10];
-            for (int i = 0; i < 10; i++)
+            string[] yearTextArr = new string[9];
+            string[] yearDataArr = new string[9];
+            for (int i = 0; i < 9; i++)
             {
                 yearTextArr[i] = (1390 + i).ToString() + (1390+i == defaultYear ? " \U00002705" : "");
                 yearDataArr[i] = (1390 + i).ToString();
             }
-            return makeKeyboard(yearTextArr, 5, false, yearDataArr);
+            return makeKeyboard(yearTextArr, 3, false, yearDataArr);
         }
 
         /// <summary>
