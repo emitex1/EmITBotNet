@@ -7,12 +7,12 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
     public class EmITNFA
     {
         private List<NFARule> rules;
-        private List<StateAfterFunction> stateAfterFunctions;
+        private List<StatePostFunction> statePostFunctions;
 
         public EmITNFA()
         {
             rules = new List<NFARule>();
-            stateAfterFunctions = new List<StateAfterFunction>();
+            statePostFunctions = new List<StatePostFunction>();
         }
 
         public void addRule(int srcState, string action, int dstState)
@@ -54,14 +54,14 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             rules.Add(new NFARule(srcState, action, dstState));
         }
 
-        public void addRuleAfterFunction(int newState, int preState, AfterFunction function)
+        public void addRulePostFunction(int newState, int preState, PostFunction function)
         {
-            stateAfterFunctions.Add(new StateAfterFunction(newState, preState, function));
+            statePostFunctions.Add(new StatePostFunction(newState, preState, function));
         }
 
-        public void addRuleAfterFunction(int newState, AfterFunction function)
+        public void addRulePostFunction(int newState, PostFunction function)
         {
-            stateAfterFunctions.Add(new StateAfterFunction(newState, -1, function));
+            statePostFunctions.Add(new StatePostFunction(newState, -1, function));
         }
 
         private int getNextState(int srcState, int action)
@@ -98,34 +98,34 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
         }
 
         //todo تعیین تکلیف تابع move
-        public AfterFunction move(int srcState, string action)
+        public PostFunction move(int srcState, string action)
         {
             int nextState = getNextState(srcState, action);
-            var safList = stateAfterFunctions.Where(saf => saf.preState == srcState && saf.nextState == nextState);
-            if (safList.Count() > 0)
-                return safList.First().function;
+            var spfList = statePostFunctions.Where(spf => spf.preState == srcState && spf.nextState == nextState);
+            if (spfList.Count() > 0)
+                return spfList.First().function;
             else
             {
-                safList = stateAfterFunctions.Where(saf => saf.preState == -1 && saf.nextState == nextState);
-                if (safList.Count() > 0)
-                    return safList.First().function;
+                spfList = statePostFunctions.Where(spf => spf.preState == -1 && spf.nextState == nextState);
+                if (spfList.Count() > 0)
+                    return spfList.First().function;
                 else
-                    return (AfterFunctionData afd) => { };
+                    return (PostFunctionData pfd) => { };
             }
         }
 
-        public AfterFunction getPostAction(int preState, int nextState)
+        public PostFunction getPostFunction(int preState, int nextState)
         {
-            var safList = stateAfterFunctions.Where(saf => saf.preState == preState && saf.nextState == nextState);
-            if (safList.Count() > 0)
-                return safList.First().function;
+            var spfList = statePostFunctions.Where(spf => spf.preState == preState && spf.nextState == nextState);
+            if (spfList.Count() > 0)
+                return spfList.First().function;
             else
             {
-                safList = stateAfterFunctions.Where(saf => saf.preState == -1 && saf.nextState == nextState);
-                if (safList.Count() > 0)
-                    return safList.First().function;
+                spfList = statePostFunctions.Where(spf => spf.preState == -1 && spf.nextState == nextState);
+                if (spfList.Count() > 0)
+                    return spfList.First().function;
                 else
-                    return (AfterFunctionData afd) => { };
+                    return (PostFunctionData pfd) => { };
             }
         }
 

@@ -72,8 +72,8 @@
     <Compile Include="EmITBotNetContext.cs" />
     <Compile Include="NFAUtility\Action\ElseAction.cs" />
     <Compile Include="NFAUtility\Action\RegexAction.cs" />
-    <Compile Include="NFAUtility\AfterFunction.cs" />
-    <Compile Include="NFAUtility\AfterFunctionData.cs" />
+    <Compile Include="NFAUtility\PostFunction.cs" />
+    <Compile Include="NFAUtility\PostFunctionData.cs" />
     <Compile Include="NFAUtility\BotStates.cs" />
     <Compile Include="NFAUtility\EmITNFA.cs" />
     <Compile Include="KeyboardGenerator.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="NFAUtility\Action\IntRangeAction.cs" />
     <Compile Include="NFAUtility\Action\LambdaAction.cs" />
     <Compile Include="NFAUtility\NFARule.cs" />
-    <Compile Include="NFAUtility\StateAfterFunction.cs" />
+    <Compile Include="NFAUtility\StatePostFunction.cs" />
     <Compile Include="NFAUtility\Action\StrAction.cs" />
     <Compile Include="NFAUtility\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
