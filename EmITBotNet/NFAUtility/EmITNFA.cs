@@ -114,7 +114,6 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             }
         }
 
-        //todo استفاده از دلیگیت به جای Func
         public AfterFunction getPostAction(int preState, int nextState)
         {
             var safList = stateAfterFunctions.Where(saf => saf.preState == preState && saf.nextState == nextState);
