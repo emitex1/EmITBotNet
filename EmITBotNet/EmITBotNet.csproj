@@ -72,6 +72,7 @@
     <Compile Include="EmITBotNetContext.cs" />
     <Compile Include="NFAUtility\Action\ElseAction.cs" />
     <Compile Include="NFAUtility\Action\RegexAction.cs" />
+    <Compile Include="NFAUtility\AfterFunction.cs" />
     <Compile Include="NFAUtility\AfterFunctionData.cs" />
     <Compile Include="NFAUtility\BotStates.cs" />
     <Compile Include="NFAUtility\EmITNFA.cs" />

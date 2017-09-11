@@ -1,7 +1,6 @@
-﻿using ir.EmIT.EmITBotNet.NFAUtility.Action;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using ir.EmIT.EmITBotNet.NFAUtility.Action;
 
 namespace ir.EmIT.EmITBotNet.NFAUtility
 {
@@ -55,12 +54,12 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             rules.Add(new NFARule(srcState, action, dstState));
         }
 
-        public void addRuleAfterFunction(int newState, int preState, Func<AfterFunctionData, int> function)
+        public void addRuleAfterFunction(int newState, int preState, AfterFunction function)
         {
             stateAfterFunctions.Add(new StateAfterFunction(newState, preState, function));
         }
 
-        public void addRuleAfterFunction(int newState, Func<AfterFunctionData, int> function)
+        public void addRuleAfterFunction(int newState, AfterFunction function)
         {
             stateAfterFunctions.Add(new StateAfterFunction(newState, -1, function));
         }
@@ -99,7 +98,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
         }
 
         //todo تعیین تکلیف تابع move
-        public Func<AfterFunctionData, int> move(int srcState, string action)
+        public AfterFunction move(int srcState, string action)
         {
             int nextState = getNextState(srcState, action);
             var safList = stateAfterFunctions.Where(saf => saf.preState == srcState && saf.nextState == nextState);
@@ -111,12 +110,12 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
                 if (safList.Count() > 0)
                     return safList.First().function;
                 else
-                    return (AfterFunctionData afd) => { return -1; };
+                    return (AfterFunctionData afd) => { };
             }
         }
 
         //todo استفاده از دلیگیت به جای Func
-        public Func<AfterFunctionData, int> doPostAction(int preState, int nextState)
+        public AfterFunction getPostAction(int preState, int nextState)
         {
             var safList = stateAfterFunctions.Where(saf => saf.preState == preState && saf.nextState == nextState);
             if (safList.Count() > 0)
@@ -127,7 +126,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
                 if (safList.Count() > 0)
                     return safList.First().function;
                 else
-                    return (AfterFunctionData afd) => { return -1; };
+                    return (AfterFunctionData afd) => { };
             }
         }
 
