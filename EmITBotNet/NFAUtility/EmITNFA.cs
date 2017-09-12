@@ -17,19 +17,19 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
 
         public void addRule(int srcState, string action, int dstState)
         {
-            addRule(srcState, new StrAction(action), dstState);
+            addRule(srcState, new NormalAction(action), dstState);
         }
 
         public void addRule(int srcState, int action, int dstState)
         {
-            addRule(srcState, new StrAction(action.ToString()), dstState);
+            addRule(srcState, new NormalAction(action.ToString()), dstState);
         }
 
         public void addRule(int srcState, int fromAction, int toAction, int dstState)
         {
             for (int i = fromAction; i <= toAction; i++)
             {
-                addRule(srcState, new StrAction(i.ToString()), dstState);
+                addRule(srcState, new NormalAction(i.ToString()), dstState);
             }            
         }
 
@@ -49,7 +49,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
         }
 
 
-        private void addRule(int srcState, AbstractAction action, int dstState)
+        private void addRule(int srcState, IAction action, int dstState)
         {
             rules.Add(new NFARule(srcState, action, dstState));
         }
@@ -64,14 +64,15 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             statePostFunctions.Add(new StatePostFunction(newState, -1, function));
         }
 
+        /*
         private int getNextState(int srcState, int action)
         {
-            var matchedRules = rules.Where(r => r.srcState == srcState && r.action.isAction(action));
+            var matchedRules = rules.Where(r => r.srcState == srcState && r.action == action);
             if (matchedRules.Count() > 0)
                 return matchedRules.First().dstState;
             else
                 return -1;
-        }
+        }*/
 
         public int getNextState(int srcState, string action)
         {

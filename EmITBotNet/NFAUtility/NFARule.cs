@@ -5,10 +5,10 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
     class NFARule
     {
         public int srcState { get; }
-        public AbstractAction action { get; }
+        public IAction action { get; }
         public int dstState { get; }
 
-        public NFARule(int srcState, AbstractAction action, int dstState)
+        public NFARule(int srcState, IAction action, int dstState)
         {
             this.srcState = srcState;
             this.action = action;

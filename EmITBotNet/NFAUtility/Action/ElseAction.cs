@@ -1,18 +1,35 @@
-﻿using System;
-
-namespace ir.EmIT.EmITBotNet.NFAUtility.Action
+﻿namespace ir.EmIT.EmITBotNet.NFAUtility.Action
 {
-    class ElseAction : AbstractAction
+    class ElseAction : IAction
     {
+        internal int actionValue;
+
         public ElseAction()
         {
-            base.actionValue = -1;
+            actionValue = -1;
         }
 
-        public override bool isAction(object action)
+        public object getActionValue()
+        {
+            return actionValue;
+        }
+
+        public bool isAction(string action)
         {
             //return (actionValue.GetType() == typeof(int) && (int)actionValue == -1 && ac action == null);
-            return actionValue == action;
+            //return actionValue == action;
+            return true;
         }
+
+        /*
+        public static bool operator ==(ElseAction elseAction, object action)
+        {
+            return true;
+        }
+
+        public static bool operator !=(ElseAction elseAction, object action)
+        {
+            return true;
+        }*/
     }
 }

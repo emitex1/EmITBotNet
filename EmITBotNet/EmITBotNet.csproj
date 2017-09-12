@@ -79,12 +79,11 @@
     <Compile Include="KeyboardGenerator.cs" />
     <Compile Include="LogRegisterar.cs" />
     <Compile Include="Models\MessageLog.cs" />
-    <Compile Include="NFAUtility\Action\AbstractAction.cs" />
-    <Compile Include="NFAUtility\Action\IntRangeAction.cs" />
+    <Compile Include="NFAUtility\Action\IAction.cs" />
     <Compile Include="NFAUtility\Action\LambdaAction.cs" />
     <Compile Include="NFAUtility\NFARule.cs" />
     <Compile Include="NFAUtility\StatePostFunction.cs" />
-    <Compile Include="NFAUtility\Action\StrAction.cs" />
+    <Compile Include="NFAUtility\Action\NormalAction.cs" />
     <Compile Include="NFAUtility\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

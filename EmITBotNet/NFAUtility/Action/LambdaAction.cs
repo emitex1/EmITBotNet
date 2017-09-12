@@ -1,15 +1,33 @@
 ﻿namespace ir.EmIT.EmITBotNet.NFAUtility.Action
 {
-    class LambdaAction : AbstractAction
+    class LambdaAction : IAction
     {
+        internal object actionValue;
+
         public LambdaAction()
         {
-            base.actionValue = null;
+            this.actionValue = null;
         }
 
-        public override bool isAction(object action)
+        public object getActionValue()
         {
-            return (actionValue == null && (action == null || action.ToString() == ""));
+            return actionValue;
         }
+
+        public bool isAction(string action)
+        {
+            return (action == null || action.Equals(""));
+        }
+
+        /*
+        public static bool operator ==(LambdaAction lambdaAction, object action)
+        {
+            return (lambdaAction.actionValue == null && (action == null || action.ToString() == ""));
+        }
+
+        public static bool operator !=(LambdaAction lambdaAction, object action)
+        {
+            return (lambdaAction.actionValue != null || (action != null && !action.ToString().Equals("")));
+        }*/
     }
 }
