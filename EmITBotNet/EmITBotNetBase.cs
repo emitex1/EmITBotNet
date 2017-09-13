@@ -1,9 +1,22 @@
-﻿namespace ir.EmIT.EmITBotNet
+﻿using Telegram.Bot;
+using Telegram.Bot.Types;
+
+namespace ir.EmIT.EmITBotNet
 {
     //todo گذاشتن کتابخانه در نیوگت
-    //todo انتقال ساز و کار ایجاد ربات و شروع به کار به اینجا
 
-    class EmITBotNetBase
+    public abstract class EmITBotNetBase
     {
+        public TelegramBotClient bot;
+
+        //public List<UserData> userData;
+        //public UserData currentUserData;
+
+        public abstract void HandleMessage(Message m);
+
+        public void setBot(TelegramBotClient bot)
+        {
+            this.bot = bot;
+        }
     }
 }

@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="EmITBotNetBase.cs" />
     <Compile Include="EmITBotNetContext.cs" />
+    <Compile Include="EmITBotNetRunner.cs" />
     <Compile Include="NFAUtility\Action\ElseAction.cs" />
     <Compile Include="NFAUtility\Action\RegexAction.cs" />
     <Compile Include="NFAUtility\PostFunction.cs" />
