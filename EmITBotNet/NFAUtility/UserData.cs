@@ -1,11 +1,14 @@
 ﻿namespace ir.EmIT.EmITBotNet.NFAUtility
 {
-    public abstract class UserData
+    public class UserData
     {
         // شماره کاربری که این اطلاعات برایش ذخیره میشود
         public long userID;
 
+        // وضعیت فعلی بات
         public int botState;
+
+        // وضعیت قبلی بات
         public int preBotState;
 
         public UserData(long userID)

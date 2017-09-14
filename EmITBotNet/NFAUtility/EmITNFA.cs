@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ir.EmIT.EmITBotNet.NFAUtility.Action;
+using Telegram.Bot.Types;
 
 namespace ir.EmIT.EmITBotNet.NFAUtility
 {
@@ -8,6 +9,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
     {
         private List<NFARule> rules;
         private List<StatePostFunction> statePostFunctions;
+
 
         public EmITNFA()
         {
@@ -98,21 +100,33 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
                 return -1;
         }
 
-        //todo تعیین تکلیف تابع move
-        public PostFunction move(int srcState, string action)
+        //public void move(int srcState, string action)
+        public void move(Message m, UserData currentUserData)
         {
-            int nextState = getNextState(srcState, action);
-            var spfList = statePostFunctions.Where(spf => spf.preState == srcState && spf.nextState == nextState);
-            if (spfList.Count() > 0)
-                return spfList.First().function;
-            else
-            {
-                spfList = statePostFunctions.Where(spf => spf.preState == -1 && spf.nextState == nextState);
-                if (spfList.Count() > 0)
-                    return spfList.First().function;
-                else
-                    return (PostFunctionData pfd) => { };
-            }
+            //int nextState = getNextState(srcState, action);
+            //var spfList = statePostFunctions.Where(spf => spf.preState == srcState && spf.nextState == nextState);
+            //if (spfList.Count() > 0)
+            //    return spfList.First().function;
+            //else
+            //{
+            //    spfList = statePostFunctions.Where(spf => spf.preState == -1 && spf.nextState == nextState);
+            //    if (spfList.Count() > 0)
+            //        return spfList.First().function;
+            //    else
+            //        return (PostFunctionData pfd) => { };
+            //}
+
+            string action = m.Text;
+            // بدست آوردن وضعیت بعدی، با توجه به وضعیت فعلی و حرکت انجام شده
+            int nextState = getNextState(currentUserData.botState, action);
+            // ذخیره کردن وضعیت فعلی ، در متغیر وضعیت قبلی
+            currentUserData.preBotState = currentUserData.botState;
+            // به روز رسانی وضعیت فعلی به وضعیت بعدی
+            currentUserData.botState = nextState;
+            // گرفتن کار مشخص شده پس از رسیدن به وضعیت جدید
+            PostFunction postFunction = getPostFunction(currentUserData.preBotState, nextState);
+            // انجام کار مشخص شده برای وضعیت جدید
+            postFunction(new PostFunctionData(m, currentUserData));
         }
 
         public PostFunction getPostFunction(int preState, int nextState)
