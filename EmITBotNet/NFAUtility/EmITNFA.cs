@@ -5,6 +5,8 @@ using Telegram.Bot.Types;
 
 namespace ir.EmIT.EmITBotNet.NFAUtility
 {
+    //todo گذاشتن کامنت و region
+    //todo اصلاح نام گذاری ها
     public class EmITNFA
     {
         private List<NFARule> rules;

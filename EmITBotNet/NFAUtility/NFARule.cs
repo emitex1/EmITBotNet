@@ -2,6 +2,7 @@
 
 namespace ir.EmIT.EmITBotNet.NFAUtility
 {
+    //todo اصلاح نام NFARule و StatePostFunction به نام های مناسب و همسان
     class NFARule
     {
         public int srcState { get; }
