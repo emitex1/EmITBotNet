@@ -73,6 +73,7 @@
     <Compile Include="EmITBotNetRunner.cs" />
     <Compile Include="NFAUtility\Action\ElseAction.cs" />
     <Compile Include="NFAUtility\Action\RegexAction.cs" />
+    <Compile Include="NFAUtility\BotState.cs" />
     <Compile Include="NFAUtility\PostFunction.cs" />
     <Compile Include="NFAUtility\PostFunctionData.cs" />
     <Compile Include="NFAUtility\BotStates.cs" />

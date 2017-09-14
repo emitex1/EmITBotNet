@@ -6,10 +6,10 @@
         public long userID;
 
         // وضعیت فعلی بات
-        public int botState;
+        public BotState botState;
 
         // وضعیت قبلی بات
-        public int preBotState;
+        public BotState preBotState;
 
         public UserData(long userID)
         {

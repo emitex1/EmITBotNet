@@ -2,11 +2,11 @@
 {
     public class StatePostFunction
     {
-        public int nextState;
-        public int preState;
+        public BotState nextState;
+        public BotState preState;
         public PostFunction function;
 
-        public StatePostFunction(int newState, int preState, PostFunction function)
+        public StatePostFunction(BotState newState, BotState preState, PostFunction function)
         {
             this.nextState = newState;
             this.preState = preState;

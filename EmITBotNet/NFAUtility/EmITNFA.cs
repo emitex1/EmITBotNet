@@ -7,6 +7,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
 {
     //todo گذاشتن کامنت و region
     //todo اصلاح نام گذاری ها
+    //todo تعریف کلاس برای State ها
     public class EmITNFA
     {
         private List<NFARule> rules;
@@ -19,17 +20,17 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             statePostFunctions = new List<StatePostFunction>();
         }
 
-        public void addRule(int srcState, string action, int dstState)
+        public void addRule(BotState srcState, string action, BotState dstState)
         {
             addRule(srcState, new NormalAction(action), dstState);
         }
 
-        public void addRule(int srcState, int action, int dstState)
+        public void addRule(BotState srcState, int action, BotState dstState)
         {
             addRule(srcState, new NormalAction(action.ToString()), dstState);
         }
 
-        public void addRule(int srcState, int fromAction, int toAction, int dstState)
+        public void addRule(BotState srcState, int fromAction, int toAction, BotState dstState)
         {
             for (int i = fromAction; i <= toAction; i++)
             {
@@ -37,35 +38,35 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             }            
         }
 
-        public void addRegexRule(int srcState, string regexExpr, int dstState)
+        public void addRegexRule(BotState srcState, string regexExpr, BotState dstState)
         {
             addRule(srcState, new RegexAction(regexExpr), dstState);
         }
 
-        public void addLambdaRule(int srcState, int dstState)
+        public void addLambdaRule(BotState srcState, BotState dstState)
         {
             addRule(srcState, new LambdaAction(), dstState);
         }
 
-        public void addElseRule(int srcState, int dstState)
+        public void addElseRule(BotState srcState, BotState dstState)
         {
             addRule(srcState, new ElseAction(), dstState);
         }
 
 
-        private void addRule(int srcState, IAction action, int dstState)
+        private void addRule(BotState srcState, IAction action, BotState dstState)
         {
             rules.Add(new NFARule(srcState, action, dstState));
         }
 
-        public void addRulePostFunction(int newState, int preState, PostFunction function)
+        public void addRulePostFunction(BotState newState, BotState preState, PostFunction function)
         {
             statePostFunctions.Add(new StatePostFunction(newState, preState, function));
         }
 
-        public void addRulePostFunction(int newState, PostFunction function)
+        public void addRulePostFunction(BotState newState, PostFunction function)
         {
-            statePostFunctions.Add(new StatePostFunction(newState, -1, function));
+            statePostFunctions.Add(new StatePostFunction(newState, BotStates.Invalid, function));
         }
 
         /*
@@ -78,7 +79,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
                 return -1;
         }*/
 
-        public int getNextState(int srcState, string action)
+        public BotState getNextState(BotState srcState, string action)
         {
             var matchedRules = rules.Where(r => r.srcState == srcState && r.action.isAction(action));
             if (matchedRules.Count() > 0)
@@ -89,17 +90,17 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
                 if (elseRule.Count() > 0)
                     return elseRule.First().dstState;
                 else
-                    return -1;
+                    return BotStates.Invalid;
             }
         }
 
-        public int getNextState(int srcState)
+        public BotState getNextState(BotState srcState)
         {
             var matchedRules = rules.Where(r => r.srcState == srcState && r.action.isAction(null));
             if (matchedRules.Count() > 0)
                 return matchedRules.First().dstState;
             else
-                return -1;
+                return BotStates.Invalid;
         }
 
         //public void move(int srcState, string action)
@@ -120,7 +121,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
 
             string action = m.Text;
             // بدست آوردن وضعیت بعدی، با توجه به وضعیت فعلی و حرکت انجام شده
-            int nextState = getNextState(currentUserData.botState, action);
+            BotState nextState = getNextState(currentUserData.botState, action);
             // ذخیره کردن وضعیت فعلی ، در متغیر وضعیت قبلی
             currentUserData.preBotState = currentUserData.botState;
             // به روز رسانی وضعیت فعلی به وضعیت بعدی
@@ -131,7 +132,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             postFunction(new PostFunctionData(m, currentUserData));
         }
 
-        public PostFunction getPostFunction(int preState, int nextState)
+        public PostFunction getPostFunction(BotState preState, BotState nextState)
         {
             var spfList = statePostFunctions.Where(spf => spf.preState == preState && spf.nextState == nextState);
             if (spfList.Count() > 0)
