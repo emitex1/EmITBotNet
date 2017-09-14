@@ -2,7 +2,7 @@
 
 namespace ir.EmIT.EmITBotNet.Models
 {
-    internal class MessageLog
+    public class MessageLog
     {
         public int MessageLogId { get; set; }
         public DateTime MessageDateTime { get; set; }

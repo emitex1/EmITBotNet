@@ -8,6 +8,7 @@ namespace ir.EmIT.EmITBotNet
     {
         private TelegramBotClient bot;
         private EmITBotNetBase botBase;
+        private EmITBotNetContext db;
 
         public EmITBotNetRunner(EmITBotNetBase botBase)
         {
@@ -41,6 +42,7 @@ namespace ir.EmIT.EmITBotNet
             }
 
             this.botBase = botBase;
+            this.db = botBase.db;
             bot.OnMessage += Bot_OnMessage;
             bot.OnCallbackQuery += Bot_OnCallbackQuery;
             bot.StartReceiving();
@@ -54,7 +56,7 @@ namespace ir.EmIT.EmITBotNet
             m.Text = e.CallbackQuery.Data;
 
             // ثبت لاگ دستورات وارد شده
-            LogRegisterar.saveLog(m);
+            LogRegisterar.saveLog(m, db);
 
             // ارجاع دستور دریافتی به بات
             botBase.HandleMessage(m);
@@ -65,7 +67,7 @@ namespace ir.EmIT.EmITBotNet
             Message m = e.Message;
 
             // ثبت لاگ دستورات وارد شده
-            LogRegisterar.saveLog(m);
+            LogRegisterar.saveLog(m, db);
 
             // ارجاع دستور دریافتی به بات
             botBase.HandleMessage(m);

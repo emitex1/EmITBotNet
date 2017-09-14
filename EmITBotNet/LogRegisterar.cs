@@ -6,10 +6,8 @@ namespace ir.EmIT.EmITBotNet
 {
     public class LogRegisterar
     {
-        public static void saveLog(Message m)
+        public static void saveLog(Message m, EmITBotNetContext db)
         {
-            EmITBotNetContext db = new EmITBotNetContext();
-
             string log = string.Format("{0}\t{1}\tFrom {2} {3} ({4}, {5}) : {6}", new PersianDateTime(m.Date).Date.ToString("yyyy/MM/dd"), m.Date.TimeOfDay.ToHHMMSS(), m.Chat.FirstName, m.Chat.LastName, m.Chat.Username, m.Chat.Id, m.Text);
             Console.WriteLine(log);
             // ثبت لاگ سیستم در پایگاه داده

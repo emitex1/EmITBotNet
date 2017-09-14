@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace ir.EmIT.EmITBotNet
 {
-    internal class EmITBotNetContext : DbContext
+    public class EmITBotNetContext : DbContext
     {
         public EmITBotNetContext()
         {

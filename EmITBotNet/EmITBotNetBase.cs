@@ -20,6 +20,30 @@ namespace ir.EmIT.EmITBotNet
         // لیست کاربران مجاز به استفاده از بات
         public List<long> authenticatedUsers;
 
+        public EmITBotNetContext db;
+
+        public EmITBotNetBase()
+        {
+            // ست کردن لیست کاربران مجاز
+            authenticatedUsers = getAuthenticatedUsers();
+
+            // تعریف شیئ دلخواه برای کار با دیتابیس
+            initDatabase();
+
+            // تعریف nfa
+            nfa = new EmITNFA();
+
+            // تعریف لیست جلسه ها برای کاربران مختلف
+            //userData = new List<MohammadArianUserData>();
+            userData = new List<UserData>();
+
+            // تعریف قواعد حرکت بین وضعیت ها، براساس عمل دریافتی
+            defineNFARules();
+
+            // تعریف قواعد انجام کار، پس از رسیدن به هر وضعیت
+            defineNFARulePostFunctions();
+        }
+
         public void HandleMessage(Message m)
         {
             // بررسی وجود جلسه (سشن) برای کاربر جاری
@@ -41,6 +65,11 @@ namespace ir.EmIT.EmITBotNet
             nfa.move(m, currentUserData);
         }
 
+        /// <summary>
+        /// تعریف شیئ دلخواه برای کار با دیتابیس
+        /// </summary>
+        public abstract void initDatabase();
+
         public abstract void checkSessionAndGetCurrentUserData(Message m);
 
         public abstract Message convertData(Message m);
@@ -61,14 +90,18 @@ namespace ir.EmIT.EmITBotNet
             if (userData.Where<UserData>(ud => ud.userID == currentUserID).Count() == 0)
             {
                 // ساخت جلسه (سشن) برای کاربر جاری با تنظیمات اولیه
-                addCustomUserDataToList(currentUserID);
+                addNewUserSession(currentUserID);
             }
             // پیدا کردن سشن مربوط به کاربر جاری
             //currentUserData = (MohammadArianUserData)userData.Where<UserData>(ud => ud.userID == currentUserID).First();
             return userData.Where<UserData>(ud => ud.userID == currentUserID).First();
         }
 
-        public abstract void addCustomUserDataToList(long currentUserID);
+        /// <summary>
+        /// افزودن جلسه جدید برای کاربر جدید
+        /// </summary>
+        /// <param name="currentUserID">شناسه کاربر جدید</param>
+        public abstract void addNewUserSession(long currentUserID);
 
         /// <summary>
         /// بررسی کاربرانی که حق دسترسی به بات را دارند
@@ -85,5 +118,21 @@ namespace ir.EmIT.EmITBotNet
             }
             return true;
         }
+
+        /// <summary>
+        /// گرفتن لیست کاربران مجاز به کار
+        /// </summary>
+        /// <returns>لیست شناسه کاربران مجاز به کار</returns>
+        public abstract List<long> getAuthenticatedUsers();
+
+        /// <summary>
+        /// تعیین قواعد بررسی وضعیت فعلی و ورودی دریافتی و تعیین وضعیت بعدی
+        /// </summary>
+        public abstract void defineNFARules();
+
+        /// <summary>
+        /// بررسی وضعیت جدید و انجام کاری که پس از رسیدن به وضعیت جدید باید انجام شود
+        /// </summary>
+        public abstract void defineNFARulePostFunctions();
     }
 }
