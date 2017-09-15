@@ -47,7 +47,7 @@ namespace ir.EmIT.EmITBotNet
         public void HandleMessage(Message m)
         {
             // بررسی وجود جلسه (سشن) برای کاربر جاری
-            checkSessionAndGetCurrentUserData(m);
+            getConvertedUserData(m);
 
             if (m.Text == null)
                 return;
@@ -70,8 +70,6 @@ namespace ir.EmIT.EmITBotNet
         /// </summary>
         public abstract void initDatabase();
 
-        public abstract void checkSessionAndGetCurrentUserData(Message m);
-
         public abstract Message convertData(Message m);
 
         public void setBot(TelegramBotClient bot)
@@ -84,7 +82,7 @@ namespace ir.EmIT.EmITBotNet
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        public UserData checkSession(Message m)
+        public UserData checkSessionAndGetCurrentUserData(Message m)
         {
             long currentUserID = m.Chat.Id;
             if (userData.Where<UserData>(ud => ud.userID == currentUserID).Count() == 0)
@@ -96,6 +94,8 @@ namespace ir.EmIT.EmITBotNet
             //currentUserData = (MohammadArianUserData)userData.Where<UserData>(ud => ud.userID == currentUserID).First();
             return userData.Where<UserData>(ud => ud.userID == currentUserID).First();
         }
+
+        public abstract void getConvertedUserData(Message m);
 
         /// <summary>
         /// افزودن جلسه جدید برای کاربر جدید

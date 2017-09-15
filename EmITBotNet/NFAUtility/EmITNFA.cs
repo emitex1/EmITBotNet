@@ -7,7 +7,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
 {
     //todo گذاشتن کامنت و region
     //todo اصلاح نام گذاری ها
-    //todo تعریف کلاس برای State ها
+
     public class EmITNFA
     {
         private List<NFARule> rules;
