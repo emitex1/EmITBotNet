@@ -103,7 +103,7 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
         }
 
         //public void move(int srcState, string action)
-        public void move(Message m, BotDataBase currentBotData)
+        public void move(Message m, SessionData currentBotData)
         {
             //int nextState = getNextState(srcState, action);
             //var spfList = statePostFunctions.Where(spf => spf.preState == srcState && spf.nextState == nextState);

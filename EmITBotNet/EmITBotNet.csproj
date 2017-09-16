@@ -86,7 +86,7 @@
     <Compile Include="NFAUtility\RuleNextAction.cs" />
     <Compile Include="NFAUtility\RulePostFunction.cs" />
     <Compile Include="NFAUtility\Action\NormalAction.cs" />
-    <Compile Include="NFAUtility\BotDataBase.cs" />
+    <Compile Include="NFAUtility\SessionData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
