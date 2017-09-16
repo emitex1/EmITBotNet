@@ -157,5 +157,18 @@ namespace ir.EmIT.EmITBotNet
         /// بررسی وضعیت جدید و انجام کاری که پس از رسیدن به وضعیت جدید باید انجام شود
         /// </summary>
         public abstract void defineNFARulePostFunctions();
+
+        /// <summary>
+        /// حرکت با ورودی لامبدا (بدون ورودی)
+        /// </summary>
+        /// <param name="m"></param>
+        public void actUsingLambdaAction(Message m)
+        {
+            Message mPrim = m;
+            mPrim.Text = "";
+            mPrim.Date = DateTime.Now;
+
+            HandleMessage(mPrim);
+        }
     }
 }
