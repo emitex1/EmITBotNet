@@ -2,14 +2,13 @@
 
 namespace ir.EmIT.EmITBotNet.NFAUtility
 {
-    //todo اصلاح نام NFARule و StatePostFunction به نام های مناسب و همسان
-    class NFARule
+    class RuleNextAction
     {
         public BotState srcState { get; }
         public IAction action { get; }
         public BotState dstState { get; }
 
-        public NFARule(BotState srcState, IAction action, BotState dstState)
+        public RuleNextAction(BotState srcState, IAction action, BotState dstState)
         {
             this.srcState = srcState;
             this.action = action;

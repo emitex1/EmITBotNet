@@ -13,8 +13,8 @@ namespace ir.EmIT.EmITBotNet
     {
         public TelegramBotClient bot;
 
-        public List<UserData> userData;
-        public UserData currentUserData;
+        public List<BotDataBase> userData;
+        public BotDataBase currentUserData;
 
         public EmITNFA nfa;
         // لیست کاربران مجاز به استفاده از بات
@@ -35,7 +35,7 @@ namespace ir.EmIT.EmITBotNet
 
             // تعریف لیست جلسه ها برای کاربران مختلف
             //userData = new List<MohammadArianUserData>();
-            userData = new List<UserData>();
+            userData = new List<BotDataBase>();
 
             // تعریف قواعد حرکت بین وضعیت ها، براساس عمل دریافتی
             defineNFARules();
@@ -82,17 +82,17 @@ namespace ir.EmIT.EmITBotNet
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        public UserData checkSessionAndGetCurrentUserData(Message m)
+        public BotDataBase checkSessionAndGetCurrentUserData(Message m)
         {
             long currentUserID = m.Chat.Id;
-            if (userData.Where<UserData>(ud => ud.userID == currentUserID).Count() == 0)
+            if (userData.Where<BotDataBase>(ud => ud.userID == currentUserID).Count() == 0)
             {
                 // ساخت جلسه (سشن) برای کاربر جاری با تنظیمات اولیه
                 addNewUserSession(currentUserID);
             }
             // پیدا کردن سشن مربوط به کاربر جاری
             //currentUserData = (MohammadArianUserData)userData.Where<UserData>(ud => ud.userID == currentUserID).First();
-            return userData.Where<UserData>(ud => ud.userID == currentUserID).First();
+            return userData.Where<BotDataBase>(ud => ud.userID == currentUserID).First();
         }
 
         public abstract void getConvertedUserData(Message m);

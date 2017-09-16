@@ -1,6 +1,6 @@
 ﻿namespace ir.EmIT.EmITBotNet.NFAUtility
 {
-    public class UserData
+    public class BotDataBase
     {
         // شماره کاربری که این اطلاعات برایش ذخیره میشود
         public long userID;
@@ -11,7 +11,7 @@
         // وضعیت قبلی بات
         public BotState preBotState;
 
-        public UserData(long userID)
+        public BotDataBase(long userID)
         {
             this.userID = userID;
 
