@@ -37,14 +37,14 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             }            
         }
 
+        public void addRule(BotState srcState, BotState dstState)
+        {
+            addRuleNextAction(srcState, new LambdaAction(), dstState);
+        }
+
         public void addRegexRule(BotState srcState, string regexExpr, BotState dstState)
         {
             addRuleNextAction(srcState, new RegexAction(regexExpr), dstState);
-        }
-
-        public void addLambdaRule(BotState srcState, BotState dstState)
-        {
-            addRuleNextAction(srcState, new LambdaAction(), dstState);
         }
 
         public void addElseRule(BotState srcState, BotState dstState)
