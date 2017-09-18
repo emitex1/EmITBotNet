@@ -133,6 +133,10 @@ namespace ir.EmIT.EmITBotNet
         /// <returns></returns>
         public bool isAuthenticated(Message m)
         {
+            // اگر لیست کاربران مجاز خالی باشد، یعنی همه دسترسی دارند
+            if (authenticatedUsers.Count() == 0)
+                return true;
+
             if (!authenticatedUsers.Contains(m.Chat.Id))
             {
                 //await bot.SendTextMessageAsync(target, "با عرض معذرت، شما مجوز دسترسی به این بات را ندارید");
