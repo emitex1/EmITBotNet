@@ -171,7 +171,7 @@ namespace ir.EmIT.EmITBotNet
         /// حرکت با ورودی لامبدا (بدون ورودی)
         /// </summary>
         /// <param name="m"></param>
-        public void actUsingLambdaAction(Message m)
+        private void actUsingLambdaAction(Message m)
         {
             actUsingCustomAction(m, "");
         }
