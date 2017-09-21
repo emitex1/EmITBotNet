@@ -21,6 +21,11 @@
             return true;
         }
 
+        public bool isLambdaAction()
+        {
+            return false;
+        }
+
         /*
         public static bool operator ==(ElseAction elseAction, object action)
         {

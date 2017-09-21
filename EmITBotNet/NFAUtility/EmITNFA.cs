@@ -131,6 +131,11 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             postFunction(new PostFunctionData(m, currentBotData));
         }
 
+        public bool currentStateHasLambdaAction(SessionData currentBotData)
+        {
+            return ruleNextActions.Where(r => r.srcState == currentBotData.botState && r.action.isLambdaAction()).Count() > 0;
+        }
+
         public PostFunction getPostFunction(BotState preState, BotState nextState)
         {
             var spfList = rulePostFunctions.Where(spf => spf.preState == preState && spf.nextState == nextState);

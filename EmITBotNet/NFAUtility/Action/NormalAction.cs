@@ -20,6 +20,12 @@
             return actionValue.Equals(action);
         }
 
+        public bool isLambdaAction()
+        {
+            return false;
+        }
+
+
         /*
         public static bool operator ==(StrAction strAction, object action)
         {

@@ -19,6 +19,12 @@
             return (action == null || action.Equals(""));
         }
 
+        public bool isLambdaAction()
+        {
+            return true;
+        }
+
+
         /*
         public static bool operator ==(LambdaAction lambdaAction, object action)
         {

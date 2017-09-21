@@ -73,6 +73,10 @@ namespace ir.EmIT.EmITBotNet
             //nfa.move(currentUserData.botState, action)(new PostFunctionData(m, currentUserData, action));
             //nfa.move(currentUserData.botState, action);
             nfa.move(m, currentSessionData);
+
+            // بررسی اینکه اگر در وضعیت جاری، یک عمل لامبدا وجود دارد، یک عمل جدید لامبدا (بدون گرفتن ورودی از کاربر) صورت بگیرد
+            if (nfa.currentStateHasLambdaAction(currentSessionData))
+                actUsingLambdaAction(m);
         }
 
         /// <summary>
@@ -146,6 +150,7 @@ namespace ir.EmIT.EmITBotNet
             return true;
         }
 
+        //todo ایجاد سازوکاری که کاربر برنامه نویس بفهمد خالی بودن لیست یعنی همه کاربران
         /// <summary>
         /// گرفتن لیست کاربران مجاز به کار
         /// </summary>
@@ -168,8 +173,13 @@ namespace ir.EmIT.EmITBotNet
         /// <param name="m"></param>
         public void actUsingLambdaAction(Message m)
         {
+            actUsingCustomAction(m, "");
+        }
+
+        public void actUsingCustomAction(Message m, string action)
+        {
             Message mPrim = m;
-            mPrim.Text = "";
+            mPrim.Text = action;
             mPrim.Date = DateTime.Now;
 
             HandleMessage(mPrim);

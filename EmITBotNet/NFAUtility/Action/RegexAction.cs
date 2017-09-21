@@ -23,6 +23,12 @@ namespace ir.EmIT.EmITBotNet.NFAUtility.Action
             return Regex.IsMatch(action, actionValue);
         }
 
+        public bool isLambdaAction()
+        {
+            return false;
+        }
+
+
         /*
         public static bool operator ==(RegexAction regexAction, object action)
         {

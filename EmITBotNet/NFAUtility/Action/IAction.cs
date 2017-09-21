@@ -7,6 +7,8 @@
         
         bool isAction(string action);
 
+        bool isLambdaAction();
+
         //public string ToString();
 
         /*
