@@ -4,6 +4,7 @@ using System.Linq;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using System;
+using System.Threading.Tasks;
 
 namespace ir.EmIT.EmITBotNet
 {
@@ -54,7 +55,7 @@ namespace ir.EmIT.EmITBotNet
         /// پردازش پیام تلگرامی دریافتی
         /// </summary>
         /// <param name="m">پیام تلگرامی دریافتی</param>
-        public async void HandleMessage(Message m)
+        public async Task HandleMessage(Message m)
         {
             // بررسی وجود جلسه (سشن) برای کاربر جاری
             getConvertedSessionData(m);
@@ -70,11 +71,12 @@ namespace ir.EmIT.EmITBotNet
 
             // عمل ورودی
             string action = m.Text;
-            await nfa.move(m, currentSessionData);
+            await nfa.move(m, currentSessionData);            
+        }
 
-            // بررسی اینکه اگر در وضعیت جاری، یک عمل لامبدا وجود دارد، یک عمل جدید لامبدا (بدون گرفتن ورودی از کاربر) صورت بگیرد
-            if (nfa.currentStateHasLambdaAction(currentSessionData))
-                actUsingLambdaAction(m);
+        public bool currentStateHasLambdaAction()
+        {
+            return nfa.currentStateHasLambdaAction(currentSessionData);
         }
 
         /// <summary>
