@@ -54,7 +54,7 @@ namespace ir.EmIT.EmITBotNet
         /// پردازش پیام تلگرامی دریافتی
         /// </summary>
         /// <param name="m">پیام تلگرامی دریافتی</param>
-        public void HandleMessage(Message m)
+        public async void HandleMessage(Message m)
         {
             // بررسی وجود جلسه (سشن) برای کاربر جاری
             getConvertedSessionData(m);
@@ -70,9 +70,7 @@ namespace ir.EmIT.EmITBotNet
 
             // عمل ورودی
             string action = m.Text;
-            //nfa.move(currentUserData.botState, action)(new PostFunctionData(m, currentUserData, action));
-            //nfa.move(currentUserData.botState, action);
-            nfa.move(m, currentSessionData);
+            await nfa.move(m, currentSessionData);
 
             // بررسی اینکه اگر در وضعیت جاری، یک عمل لامبدا وجود دارد، یک عمل جدید لامبدا (بدون گرفتن ورودی از کاربر) صورت بگیرد
             if (nfa.currentStateHasLambdaAction(currentSessionData))

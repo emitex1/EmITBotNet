@@ -2,6 +2,7 @@
 using System.Linq;
 using ir.EmIT.EmITBotNet.NFAUtility.Action;
 using Telegram.Bot.Types;
+using System.Threading.Tasks;
 
 namespace ir.EmIT.EmITBotNet.NFAUtility
 {
@@ -103,32 +104,22 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
         }
 
         //public void move(int srcState, string action)
-        public void move(Message m, SessionData currentBotData)
+        public Task move(Message m, SessionData currentBotData)
         {
-            //int nextState = getNextState(srcState, action);
-            //var spfList = statePostFunctions.Where(spf => spf.preState == srcState && spf.nextState == nextState);
-            //if (spfList.Count() > 0)
-            //    return spfList.First().function;
-            //else
-            //{
-            //    spfList = statePostFunctions.Where(spf => spf.preState == -1 && spf.nextState == nextState);
-            //    if (spfList.Count() > 0)
-            //        return spfList.First().function;
-            //    else
-            //        return (PostFunctionData pfd) => { };
-            //}
-
-            string action = m.Text;
-            // بدست آوردن وضعیت بعدی، با توجه به وضعیت فعلی و حرکت انجام شده
-            BotState nextState = getNextState(currentBotData.botState, action);
-            // ذخیره کردن وضعیت فعلی ، در متغیر وضعیت قبلی
-            currentBotData.preBotState = currentBotData.botState;
-            // به روز رسانی وضعیت فعلی به وضعیت بعدی
-            currentBotData.botState = nextState;
-            // گرفتن کار مشخص شده پس از رسیدن به وضعیت جدید
-            PostFunction postFunction = getPostFunction(currentBotData.preBotState, nextState);
-            // انجام کار مشخص شده برای وضعیت جدید
-            postFunction(new PostFunctionData(m, currentBotData));
+            return Task.Run(() =>
+            {
+                string action = m.Text;
+                // بدست آوردن وضعیت بعدی، با توجه به وضعیت فعلی و حرکت انجام شده
+                BotState nextState = getNextState(currentBotData.botState, action);
+                // ذخیره کردن وضعیت فعلی ، در متغیر وضعیت قبلی
+                currentBotData.preBotState = currentBotData.botState;
+                // به روز رسانی وضعیت فعلی به وضعیت بعدی
+                currentBotData.botState = nextState;
+                // گرفتن کار مشخص شده پس از رسیدن به وضعیت جدید
+                PostFunction postFunction = getPostFunction(currentBotData.preBotState, nextState);
+                // انجام کار مشخص شده برای وضعیت جدید
+                postFunction(new PostFunctionData(m, currentBotData));
+            });
         }
 
         public bool currentStateHasLambdaAction(SessionData currentBotData)
