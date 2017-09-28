@@ -55,7 +55,7 @@ namespace ir.EmIT.EmITBotNet
         /// پردازش پیام تلگرامی دریافتی
         /// </summary>
         /// <param name="m">پیام تلگرامی دریافتی</param>
-        public async Task HandleMessage(Message m)
+        public async void HandleMessage(Message m)
         {
             // بررسی وجود جلسه (سشن) برای کاربر جاری
             getConvertedSessionData(m);
@@ -71,12 +71,19 @@ namespace ir.EmIT.EmITBotNet
 
             // عمل ورودی
             string action = m.Text;
-            await nfa.move(m, currentSessionData);            
-        }
 
-        public bool currentStateHasLambdaAction()
-        {
-            return nfa.currentStateHasLambdaAction(currentSessionData);
+            // انجام عمل و حرکت به سمت وضعیت بعدی
+            await nfa.move(m, currentSessionData);
+
+            // بررسی اینکه اگر در وضعیت جاری، یک عمل لامبدا وجود دارد، یک حرکت جدید با عمل لامبدا (بدون گرفتن ورودی از کاربر) صورت بگیرد
+            while (nfa.currentStateHasLambdaAction(currentSessionData))
+            {
+                Message m2 = m;
+                m2.Text = "";
+                await nfa.move(m2, currentSessionData);
+                //actUsingLambdaAction(m);
+            }
+            
         }
 
         /// <summary>
@@ -167,14 +174,14 @@ namespace ir.EmIT.EmITBotNet
         /// </summary>
         public abstract void defineNFARulePostFunctions();
 
-        /// <summary>
+        /*/// <summary>
         /// حرکت با ورودی لامبدا (بدون ورودی)
         /// </summary>
         /// <param name="m"></param>
         private void actUsingLambdaAction(Message m)
         {
             actUsingCustomAction(m, "");
-        }
+        }*/
 
         public void actUsingCustomAction(Message m, string action)
         {

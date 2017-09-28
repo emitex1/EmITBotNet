@@ -56,32 +56,23 @@ namespace ir.EmIT.EmITBotNet
             Message m = e.CallbackQuery.Message;
             m.Text = e.CallbackQuery.Data;
 
-            saveLogAndHandleMessageAndActLambdaAction(m);
+            saveLogAndHandleMessage(m);
         }
 
         private void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
             Message m = e.Message;
 
-            saveLogAndHandleMessageAndActLambdaAction(m);
+            saveLogAndHandleMessage(m);
         }
 
-        private async Task saveLogAndHandleMessageAndActLambdaAction(Message m)
+        private void saveLogAndHandleMessage(Message m)
         {
             // ثبت لاگ دستورات وارد شده
             LogRegisterar.saveLog(m, db);
 
             // ارجاع دستور دریافتی به بات
-            await botBase.HandleMessage(m);
-
-            // بررسی اینکه اگر در وضعیت جاری، یک عمل لامبدا وجود دارد، یک عمل جدید لامبدا (بدون گرفتن ورودی از کاربر) صورت بگیرد
-            if (botBase.currentStateHasLambdaAction())
-            {
-                Message m2 = m;
-                m2.Text = "";
-                await botBase.HandleMessage(m2);
-                //actUsingLambdaAction(m);
-            }
+            botBase.HandleMessage(m);            
         }
     }
 }
