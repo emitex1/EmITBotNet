@@ -76,10 +76,11 @@ namespace ir.EmIT.EmITBotNet
             await nfa.move(m, currentSessionData);
 
             // بررسی اینکه اگر در وضعیت جاری، یک عمل لامبدا وجود دارد، یک حرکت جدید با عمل لامبدا (بدون گرفتن ورودی از کاربر) صورت بگیرد
-            while (nfa.currentStateHasLambdaAction(currentSessionData))
+            while (nfa.currentStateHasLambdaAction(currentSessionData) || nfa.currentStateHasCustomAction(currentSessionData))
             {
                 Message m2 = m;
-                m2.Text = "";
+                m2.Text = currentSessionData.nextCustomAction;
+                currentSessionData.nextCustomAction = "";
                 await nfa.move(m2, currentSessionData);
                 //actUsingLambdaAction(m);
             }
@@ -115,14 +116,14 @@ namespace ir.EmIT.EmITBotNet
         public SessionData checkSessionAndGetCurrentUserData(Message m)
         {
             long currentUserID = m.Chat.Id;
-            if (sessionDataList.Where<SessionData>(ud => ud.userID == currentUserID).Count() == 0)
+            if (sessionDataList.Where<SessionData>(ud => ud.telegramUserID == currentUserID).Count() == 0)
             {
                 // ساخت جلسه (سشن) برای کاربر جاری با تنظیمات اولیه
                 addNewUserSession(currentUserID);
             }
             // پیدا کردن سشن مربوط به کاربر جاری
             //currentUserData = (MohammadArianUserData)userData.Where<UserData>(ud => ud.userID == currentUserID).First();
-            return sessionDataList.Where<SessionData>(ud => ud.userID == currentUserID).First();
+            return sessionDataList.Where<SessionData>(ud => ud.telegramUserID == currentUserID).First();
         }
 
         /// <summary>
@@ -185,11 +186,13 @@ namespace ir.EmIT.EmITBotNet
 
         public void actUsingCustomAction(Message m, string action)
         {
-            Message mPrim = m;
+            /*Message mPrim = m;
             mPrim.Text = action;
             mPrim.Date = DateTime.Now;
 
-            HandleMessage(mPrim);
+            HandleMessage(mPrim);*/
+
+            currentSessionData.nextCustomAction = action;
         }
     }
 }

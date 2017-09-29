@@ -69,6 +69,11 @@ namespace ir.EmIT.EmITBotNet.NFAUtility
             rulePostFunctions.Add(new RulePostFunction(newState, BotStates.Invalid, function));
         }
 
+        internal bool currentStateHasCustomAction(SessionData currentSessionData)
+        {
+            return currentSessionData.nextCustomAction != "";
+        }
+
         /*
         private int getNextState(int srcState, int action)
         {
