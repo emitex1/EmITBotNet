@@ -230,5 +230,19 @@ namespace ir.EmIT.EmITBotNet
             }
             return makeKeyboard(numberArr, columnCount, hasReturnBtn, dataArr);
         }
+
+        public static InlineKeyboardMarkup makeYesNoKeybaord(string yesTitle = "بله" , string noTitle = "خیر")
+        {
+            string[] textArr = new string[2];
+            string[] dataArr = new string[2];
+
+            textArr[0] = noTitle;
+            textArr[1] = yesTitle;
+
+            dataArr[0] = "no";
+            dataArr[1] = "yes";
+
+            return makeKeyboard(textArr, 2, false, dataArr);
+        }
     }
 }
